@@ -4,7 +4,8 @@ import {
     VisibilityFilters,
     SET_VISIBILITY_FILTER,
     RELOAD_TWEETS,
-    LOAD_NEW_TWEETS
+    LOAD_NEW_TWEETS,
+    PONG,
 } from "../actions/twitterActions";
 
 const initialState = {
@@ -27,6 +28,11 @@ export default function twitterApp(state: any = initialState, action: any) {
         case LOAD_NEW_TWEETS:
             return Object.assign({}, state, {
                 tweets: [...state.tweets, ...action.tweets], 
+            })
+
+        case PONG:
+            return Object.assign({}, state, {
+                pong: action.pong
             })
     
         default:

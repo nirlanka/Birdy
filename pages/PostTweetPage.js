@@ -6,15 +6,20 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import type { NavigationState, NavigationScreenProp}from 'react-navigation';
-import { useDispatcher, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { ping } from "../api/twitterApi";
+import { pinged } from "../store/actions/twitterActions";
 
 const PostTweetPage = ({navigation}: NavigationScreenProp<NavigationState>) => { 
     const tweets = useSelector(state => state.tweets);
+    const dispatch = useDispatch();
 
     return (
         <View>
             <TouchableOpacity
-                onPress={()=>{
+                onPress={async ()=>{
+                    const pong = await ping();
+                    dispatch(pinged(pong ? pong.pong : ''));
                     navigation.navigate('HomePage');
                 }}
             >
